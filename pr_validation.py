@@ -28,32 +28,29 @@ def parse_command_line():
     return args
 
 
-def validate(commit_range, branch_slug=None, repo=None):
+def validate(commit_range, branch_slug, allowed_challenges, repo=None):
     """Validate pull request."""
     git = sh.git.bake('--no-pager')
-    env = os.environ.copy()
     cwd = os.getcwd()
-    if branch_slug is None:
-        branch_slug = env.get('TRAVIS_PULL_REQUEST_SLUG')
-    if branch_slug is None:
-        print('No branch slug specified')
-        stop(cwd, 1)
     if repo is not None:
         os.chdir(repo)
     changes = git.diff(commit_range, '--name-only')
     change_list = changes.strip().split('\n')
     username = branch_slug.split('/')[0]
+    if allowed_challenges is None:
+        allowed_challenges = (2, 3, 4, 'bonus', 'test')
     allowed = [
         '{}_{}'.format(username, challenge)
-        for challenge in (1, 2, 3, 4, 'bonus', 'test')]
+        for challenge in allowed_challenges]
     unallowed = [fil for fil in change_list if fil not in allowed]
     if not unallowed:
         stop(cwd)
-        return
+        return change_list, username
     print(
         'All files changed are not equal to '
-        '[GitHub username]_[challenge number].csv.\nYour GitHub username is: ',
-        username)
+        '[GitHub username]_[challenge number].csv.')
+    print('Your GitHub username is: ', username)
+    print('Allowed challenges to test are: ', allowed_challenges)
     print('Unallowed changes in:')
     for fil in unallowed:
         print(fil)
