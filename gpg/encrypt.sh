@@ -16,11 +16,18 @@ if [ $# -eq 0 ]
     exit 1
 fi
 
+get_abs_filename() {
+  # $1 : relative filename
+  echo "$(cd "$(dirname "$1")" && pwd)/$(basename "$1")"
+}
+
 SECRETFILE=$1
-SECRETFILEOUT="$SECRETFILE.gpg"
+SECRETABSPATH=$(get_abs_filename "$SECRETFILE")
+SECRETFILEOUT="$SECRETABSPATH.gpg"
+cd "$(dirname "$0")"
 rm -rf /tmp/gnupg
 mkdir -m 700 /tmp/gnupg
 gpg --homedir /tmp/gnupg --import C3022F19-public.key
 gpg -q --yes --encrypt --homedir /tmp/gnupg --trust-model always \
-  --output $SECRETFILEOUT --recipient C3022F19 $SECRETFILE
+  --output $SECRETFILEOUT --recipient C3022F19 $SECRETABSPATH
 rm -rf /tmp/gnupg
