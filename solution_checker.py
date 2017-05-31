@@ -4,6 +4,12 @@ import csv
 import sys
 import collections
 
+PREC = 'prec'
+REC = 'rec'
+TRUE_POS = 'tp'
+FALSE_POS = 'fp'
+FALSE_NEG = 'fn'
+
 
 def parseargs():
     """Parse command line arguments."""
@@ -30,58 +36,58 @@ def read_key_file(f_path):
     except IndexError:
         print(('Expected input on format "ID, class1, ...\\n" but'
                'recieved ' + ''.join(line)), file=sys.stderr)
-        sys.exit(-1)
+        sys.exit(1)
     except FileNotFoundError:
         assert isinstance(f_path, str)
         print('Could not find the file ' + f_path, file=sys.stderr)
-        sys.exit(-1)
+        sys.exit(1)
     except AssertionError:
         print('Not a valid filename', file=sys.stderr)
-        sys.exit(-1)
+        sys.exit(1)
 
 
 def calc_precision(submitted, solution):
     """Calculate precision."""
-    precision = collections.defaultdict(lambda: {'tp': 0, 'fp': 0})
+    precision = collections.defaultdict(lambda: {TRUE_POS: 0, FALSE_POS: 0})
     for sub in submitted:
         sub_key = submitted[sub]
-        try:
-            sol_key = solution[sub]
-        except IndexError:
+        sol_key = solution.get(sub)
+        if sol_key is None:
             print(sub + ' Could not be found in solution key', file=sys.stderr)
+            sys.exit(1)
 
         for key in sub_key:
             if key in sol_key:
-                precision[key]['tp'] += 1
+                precision[key][TRUE_POS] += 1
             else:
-                precision[key]['fp'] += 1
+                precision[key][FALSE_POS] += 1
     for key in precision:
-        tp_prec = precision[key]['tp']
-        fp_prec = precision[key]['fp']
-        precision[key]['prec'] = tp_prec / (tp_prec + fp_prec)
+        tp_prec = precision[key][TRUE_POS]
+        fp_prec = precision[key][FALSE_POS]
+        precision[key][PREC] = tp_prec / (tp_prec + fp_prec)
     return dict(precision)
 
 
 def calc_recall(submitted, solution):
     """Calculate recall."""
-    recall = collections.defaultdict(lambda: {'tp': 0, 'fn': 0})
+    recall = collections.defaultdict(lambda: {TRUE_POS: 0, FALSE_NEG: 0})
     for sub in submitted:
         sub_key = submitted[sub]
-        try:
-            sol_key = solution[sub]
-        except IndexError:
+        sol_key = solution.get(sub)
+        if sol_key is None:
             print(sub + ' Could not be found in solution key', file=sys.stderr)
+            sys.exit(1)
 
         for key in sol_key:
             if key in sub_key:
-                recall[key]['tp'] += 1
+                recall[key][TRUE_POS] += 1
             else:
-                recall[key]['fn'] += 1
+                recall[key][FALSE_NEG] += 1
 
     for key in recall:
-        tp_recall = recall[key]['tp']
-        fn_recall = recall[key]['fn']
-        recall[key]['rec'] = tp_recall / (tp_recall + fn_recall)
+        tp_recall = recall[key][TRUE_POS]
+        fn_recall = recall[key][FALSE_NEG]
+        recall[key][REC] = tp_recall / (tp_recall + fn_recall)
     return dict(recall)
 
 
@@ -89,9 +95,9 @@ def calc_f1_score(precision, recall):
     """Calculate f1 score."""
     f1_score = collections.defaultdict(float)
     for key in precision:
-        prec = precision[key]['prec']
+        prec = precision[key][PREC]
         if key in recall:
-            rec = recall[key]['rec']
+            rec = recall[key][REC]
         else:
             rec = 0
         f1_score[key] = 2 * ((prec * rec) / ((prec + rec) or 1.0))
@@ -123,15 +129,15 @@ def main():
     for key in keys:
         if key not in f1_score:
             print(key, 'not in the available keys', file=sys.stderr)
-            sys.exit(-1)
+            sys.exit(1)
 
         fin_f_score += f1_score[key]
         try:
-            fin_r_score += recall[key]['rec']
+            fin_r_score += recall[key][REC]
         except IndexError:
             pass
         try:
-            fin_p_score += precision[key]['prec']
+            fin_p_score += precision[key][PREC]
         except IndexError:
             pass
     fin_f_score /= len(f1_score)
