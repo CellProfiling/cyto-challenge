@@ -146,6 +146,7 @@ def score(submitted_answer, solution_key, include_classes=None):
     print('Recall:', fin_r_score)
     print('Precision:', fin_p_score)
     print('F1 score:', fin_f_score)
+    return fin_r_score, fin_p_score, fin_f_score
 
 
 def main():
