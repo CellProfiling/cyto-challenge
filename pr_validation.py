@@ -44,8 +44,8 @@ def validate(commit_range, branch_slug=None, repo=None):
     change_list = changes.strip().split('\n')
     username = branch_slug.split('/')[0]
     allowed = [
-        '{}_{}'.format(username, challenge_no)
-        for challenge_no in (1, 2, 3, 4)]
+        '{}_{}'.format(username, challenge)
+        for challenge in (1, 2, 3, 4, 'bonus', 'test')]
     unallowed = [fil for fil in change_list if fil not in allowed]
     if not unallowed:
         stop(cwd)
