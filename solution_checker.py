@@ -17,7 +17,7 @@ def parseargs():
     parser.add_argument('submitted_answer')
     parser.add_argument('solution_key')
     parser.add_argument('-i', '--include', action='append',
-                        help=('Inlcude the specified class. '
+                        help=('Include the specified class. '
                               'Can be used multiple times'))
     args = parser.parse_args()
     return args.submitted_answer, args.solution_key, args.include
@@ -104,9 +104,8 @@ def calc_f1_score(precision, recall):
     return dict(f1_score)
 
 
-def main():
-    """Calculate score for answers."""
-    submitted_answer, solution_key, include_classes = parseargs()
+def score(submitted_answer, solution_key, include_classes=None):
+    """Score the submitted answer."""
     submitted = read_key_file(submitted_answer)
     solution = read_key_file(solution_key)
 
@@ -147,6 +146,12 @@ def main():
     print('Recall:', fin_r_score)
     print('Precision:', fin_p_score)
     print('F1 score:', fin_f_score)
+
+
+def main():
+    """Calculate score for answer."""
+    submitted_answer, solution_key, include_classes = parseargs()
+    score(submitted_answer, solution_key, include_classes)
 
 
 if __name__ == '__main__':
