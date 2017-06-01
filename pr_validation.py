@@ -45,7 +45,7 @@ def validate(commit_range, branch_slug, allowed_challenges, repo=None):
     unallowed = [fil for fil in change_list if fil not in allowed]
     if not unallowed:
         stop(cwd)
-        return change_list, username
+        return
     print(
         'All files changed are not equal to '
         '[GitHub username]_[challenge number].csv.')
