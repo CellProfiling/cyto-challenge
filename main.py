@@ -5,23 +5,7 @@ from glob import iglob
 
 from pr_validation import validate
 from solution_checker import score
-
-SOLUTIONS = {
-    '2': ['solutions/challenge2/major13_test_obfuscated.csv'],
-    '3': ['solutions/challenge3/rare_events_test_obfuscated.csv'],
-    '4': [
-        'solutions/challenge4/class_disc_test_obfuscated.csv',
-        'solutions/challenge4/rare_events_class_disc_test_obfuscated.csv'],
-    'bonus': [
-        'solutions/bonus/major13_test_ccv_obfuscated.csv',
-        'solutions/bonus/rare_events_test_ccv_obfuscated.csv'],
-    'test': ['solutions/test/toy_events_solution.csv']
-}
-
-RECALL = 'recall'
-PRECISION = 'precision'
-F1_SCORE = 'f1_score'
-SCORE_FILE = 'scores.json'
+from gen_markdown import SCORE_FILE, RECALL, F1_SCORE, PRECISION, SOLUTIONS
 
 
 def check(commit_range=None, branch_slug=None):
