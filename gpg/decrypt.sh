@@ -6,6 +6,6 @@ files=($(find -name "*" \( -name "*.gpg" \)))
 
 for FILE in ${files[*]}; do
     echo "Extracting $FILE to ${FILE%.gpg}"
-    gpg --passphrase $PASSWORD --batch -d -q --no-tty --yes \
-      --output "${FILE%.gpg}" "$FILE"
+    gpg --passphrase-file $PASSWORD --batch --no-tty -q --yes -d \
+      -o "${FILE%.gpg}" "$FILE"
 done
