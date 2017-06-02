@@ -2,7 +2,10 @@
 # Decrypt pgp key and add github deploy key to keyring
 set -e # Exit with nonzero exit code if anything fails
 
-# Get the deploy key by using Travis's stored variables to decrypt deploy_key.enc
+# Extract the secrets from the archive
+tar -xvf secrets.tar
+
+# Import the deploy key
 chmod 600 ./cyto-github-deploy
 eval `ssh-agent -s`
 ssh-add cyto-github-deploy
