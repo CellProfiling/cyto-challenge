@@ -100,3 +100,5 @@ ENV/
 
 # Never commit csv files unencrypted.
 *.csv
+
+*.asc
