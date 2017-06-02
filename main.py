@@ -27,12 +27,14 @@ def check_scores():
     """Check scores."""
     with open(SCORE_FILE, 'r+') as score_file:
         scores = json.load(score_file)
+        score_file.seek(0)
+        score_file.truncate()  # clear file
         for submitted in iglob('./submissions/*/*.csv'):
             base, _ = os.path.splitext(submitted)
             _, team_challenge = os.path.split(base)
             parts = team_challenge.split('_')
             challenge = str(parts[-1])
-            team = str(parts[0:-2])
+            team = ''.join(parts[:-1])
             solutions = SOLUTIONS[challenge]
             for sol_path in solutions:
                 fin_r_score, fin_p_score, fin_f_score = score(
@@ -41,6 +43,7 @@ def check_scores():
                 scores.update({team: {challenge: {
                     RECALL: fin_r_score, PRECISION: fin_p_score,
                     F1_SCORE: fin_f_score}}})
+            print(scores)
         json.dump(scores, score_file)
 
 
