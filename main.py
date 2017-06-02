@@ -41,6 +41,7 @@ def check_scores():
                 scores.update({team: {challenge: {
                     RECALL: fin_r_score, PRECISION: fin_p_score,
                     F1_SCORE: fin_f_score}}})
+        json.dump(scores, score_file)
 
 
 def main():
