@@ -84,7 +84,7 @@ $ git push origin HEAD
 ```
 
 - Create a pull request at GitHub to our `cyto-challenge` repository and target the `master` branch with your changes.
-- If the Travis build turns green :white_check_mark:, we will merge your pull request. This should automatically update the leader board on the site. If the Travis build fails, you should look at the build logs and see what made the build fail. You are only allowed to change files that are named `[YOUR_GIT_USERNAME]_[CHALLENGE].csv.gpg`. Any other changes will fail the pull request build. After the pull request is merged, Travis will build again and this time score your submission. If the auto-scorer can't score your csv file, your row in the leader board will contain a message about this when the site has updated.
+- If the Travis build turns green :white_check_mark:, we will merge your pull request. This should automatically update the leader board on the site. If the Travis build fails, you should look at the build logs and see what made the build fail. You are only allowed to change files that are named `[YOUR_GIT_USERNAME]_[CHALLENGE].csv.gpg`. Any other changes will fail the pull request build. Changing source files to cheat would be lead to very bad Karma. Don't do that. :wink: After the pull request is merged, Travis will build again and this time score your submission. If the auto-scorer can't score your csv file, your row in the leader board will contain a message about this when the site has updated.
 - If you want to update your submission or try new challenges, make sure you pull the latest version from our repo, ie the `upstream` remote, before making your changes. You can also delete your old solution branch.
 
 ```
