@@ -1,0 +1,23 @@
+sudo: false
+language: python
+python:
+  - "3.5"
+env:
+  global:
+    - SOURCE_BRANCH: "master"
+    - TARGET_BRANCH: "gh-pages"
+    - COMMIT_AUTHOR_EMAIL: "marhje52@kth.se"
+install: "pip3 install -r requirements.txt"
+before_script:
+  - ./scripts/before
+script: ./scripts/test
+after_success:
+  - ./scripts/deploy
+
+# if PR build:
+# run check in main.py
+# if push build:
+# get keys
+# decrypt csvs
+# run check in main.py
+# commit and deploy results to github gh-pages
