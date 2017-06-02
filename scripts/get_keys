@@ -8,4 +8,5 @@ eval `ssh-agent -s`
 ssh-add cyto-github-deploy
 
 # Import the pgp key into gpg
+chmod 600 ./cyto_encryption.asc
 gpg --import < ./cyto_encryption.asc
