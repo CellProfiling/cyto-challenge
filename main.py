@@ -7,16 +7,21 @@ from pr_validation import validate
 from solution_checker import score
 from gen_markdown import SCORE_FILE, RECALL, F1_SCORE, PRECISION, SOLUTIONS
 
+SUBMISSION_PATH = './submissions/*/*.csv'
+TRAVIS_COMMIT_RANGE = 'TRAVIS_COMMIT_RANGE'
+MASTER_HEAD_RANGE = 'master..HEAD'
+TRAVIS_PULL_REQUEST_SLUG = 'TRAVIS_PULL_REQUEST_SLUG'
+
 
 def check(commit_range=None, branch_slug=None):
     """Perform checks."""
     env = os.environ.copy()
     if commit_range is None:
-        commit_range = env.get('TRAVIS_COMMIT_RANGE')
+        commit_range = env.get(TRAVIS_COMMIT_RANGE)
     if commit_range is None:
-        commit_range = 'master..HEAD'
+        commit_range = MASTER_HEAD_RANGE
     if branch_slug is None:
-        branch_slug = env.get('TRAVIS_PULL_REQUEST_SLUG')
+        branch_slug = env.get(TRAVIS_PULL_REQUEST_SLUG)
     if branch_slug:
         validate(commit_range, branch_slug, SOLUTIONS.keys())
     else:
@@ -29,7 +34,7 @@ def check_scores():
         scores = json.load(score_file)
         score_file.seek(0)
         score_file.truncate()  # clear file
-        for submitted in iglob('./submissions/*/*.csv'):
+        for submitted in iglob(SUBMISSION_PATH):
             base, _ = os.path.splitext(submitted)
             _, team_challenge = os.path.split(base)
             parts = team_challenge.split('_')
