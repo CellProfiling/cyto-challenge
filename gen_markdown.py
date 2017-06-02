@@ -11,12 +11,16 @@ LINKS = [
     'http://cytoconference.org/2017/Program/Image-Analysis-Challenge.aspx',
 ]
 HEADERS = [
-    'Team', 'F1 score', 'Precision', 'Recall'
+    'Team', 'F1 score', 'Previous F1 Score', 'Precision', 'Previous precision',
+    'Recall', 'Previous recall'
 ]
 SCORE_FILE = 'scores.json'
 RECALL = 'recall'
 PRECISION = 'precision'
 F1_SCORE = 'f1_score'
+RECALL_OLD = 'recall_old'
+PRECISION_OLD = 'precision_old'
+F1_SCORE_OLD = 'f1_score_old'
 SOLUTIONS = {
     '2': ['solutions/challenge2/major13_test_obfuscated.csv'],
     '3': ['solutions/challenge3/rare_events_test_obfuscated.csv'],
@@ -33,6 +37,7 @@ CYTO_CONFERENCE = 'Challenge hosted by [cytoconference.org]({})\n\n'
 LEADERBOARD_HEAD = '# Leaderboard\n\n'
 CHALLENGE_HEAD = '## Challenge {}\n\n'
 INSTRUCTIONS = 'INSTRUCTIONS.md'
+DISCLAIMER = 'DISCLAIMER.md'
 
 
 def make_table(scores, challenge):
@@ -41,8 +46,10 @@ def make_table(scores, challenge):
         [
             [
                 team, results[challenge][F1_SCORE],
+                results[challenge][F1_SCORE_OLD],
                 results[challenge][PRECISION],
-                results[challenge][RECALL]]
+                results[challenge][PRECISION_OLD],
+                results[challenge][RECALL], results[challenge][RECALL_OLD]]
             for team, results in scores.items() if results.get(challenge)],
         key=lambda x: x[1], reverse=True)
     return table
@@ -55,6 +62,8 @@ def gen_md(path=None):
     text = ''
     with open(INSTRUCTIONS, 'r') as instructions_file:
         instructions = instructions_file.read()
+    with open(DISCLAIMER, 'r') as disclaimer_file:
+        disclaimer = disclaimer_file.read()
     with open(path, 'r') as score_file:
         scores = json.load(score_file)
     tables = {
@@ -62,11 +71,12 @@ def gen_md(path=None):
     tables = OrderedDict(sorted(tables.items(), key=lambda t: t[0]))
     with open(README, 'r+') as readme:
         readme.truncate()  # clear file
+        text += '{}\n\n'.format(disclaimer)
         text += LEADERBOARD_HEAD
         for challenge, table in tables.items():
             if table:
                 text += CHALLENGE_HEAD.format(challenge)
-                text += tabulate(table, HEADERS, tablefmt="pipe")
+                text += tabulate(table, HEADERS, tablefmt='pipe')
                 text += '\n\n'
         link_text = PROTEIN_ATLAS + CYTO_CONFERENCE
         text += link_text.format(*LINKS)

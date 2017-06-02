@@ -1,10 +1,19 @@
+# Disclaimer
+
+By submitting a solution to any of these challenges, you agree to the following:
+* Your username can be published alongside your results publicly available on our webpages, <results webpage here> http://proteinatlas.org/, and http://cytoconference.org.
+* Your username and results can be used during our workshop at the Cyto conference 2017 as well as in any conference proceedings for the Cyto conference 2017.
+* Your anonymized results can be used in future publications.
+* Your author list, including potential affiliations and emails, will be kept on record privately with your results until after the winners of the competition have been announced.
+
+
 # Leaderboard
 
 ## Challenge test
 
-| Team           |   F1 score |   Precision |   Recall |
-|:---------------|-----------:|------------:|---------:|
-| MartinHjelmare |       0.65 |        0.75 | 0.583333 |
+| Team           |   F1 score |   Previous F1 Score |   Precision |   Previous precision |   Recall |   Previous recall |
+|:---------------|-----------:|--------------------:|------------:|---------------------:|---------:|------------------:|
+| MartinHjelmare |       0.65 |                0.65 |        0.75 |                 0.75 | 0.583333 |          0.583333 |
 
 Data provided by the [Human Protein Atlas](http://proteinatlas.org)
 
