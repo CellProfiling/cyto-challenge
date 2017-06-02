@@ -3,9 +3,10 @@ import json
 import os
 from glob import iglob
 
+from gen_markdown import (F1_SCORE, PRECISION, RECALL, SCORE_FILE, SOLUTIONS,
+                          gen_md)
 from pr_validation import validate
 from solution_checker import score
-from gen_markdown import SCORE_FILE, RECALL, F1_SCORE, PRECISION, SOLUTIONS
 
 SUBMISSION_PATH = './submissions/*/*.csv'
 TRAVIS_COMMIT_RANGE = 'TRAVIS_COMMIT_RANGE'
@@ -55,6 +56,7 @@ def check_scores():
 def main():
     """Run main."""
     check()
+    gen_md()
 
 
 if __name__ == '__main__':
