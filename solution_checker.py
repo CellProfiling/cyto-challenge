@@ -11,6 +11,12 @@ FALSE_POS = 'fp'
 FALSE_NEG = 'fn'
 
 
+class ScoreError(Exception):
+    """Error raised when the solution checker fails."""
+
+    pass
+
+
 def parseargs():
     """Parse command line arguments."""
     parser = argparse.ArgumentParser()
@@ -35,15 +41,17 @@ def read_key_file(f_path):
         return ids
     except IndexError:
         print(('Expected input on format "ID, class1, ...\\n" but'
-               'recieved ' + ''.join(line)), file=sys.stderr)
-        sys.exit(1)
+               'recieved', ''.join(line)), file=sys.stderr)
+        raise ScoreError(
+            'Expected input on format "ID, class1, ...\\n" but'
+            'recieved {}'.format(''.join(line)))
     except FileNotFoundError:
         assert isinstance(f_path, str)
-        print('Could not find the file ' + f_path, file=sys.stderr)
-        sys.exit(1)
+        print('Could not find the file', f_path, file=sys.stderr)
+        raise ScoreError('Could not find the file {}'.format(f_path))
     except AssertionError:
         print('Not a valid filename', file=sys.stderr)
-        sys.exit(1)
+        raise ScoreError('Not a valid filename')
 
 
 def calc_precision(submitted, solution):
@@ -53,8 +61,9 @@ def calc_precision(submitted, solution):
         sub_key = submitted[sub]
         sol_key = solution.get(sub)
         if sol_key is None:
-            print(sub + ' Could not be found in solution key', file=sys.stderr)
-            sys.exit(1)
+            print(sub, 'could not be found in solution key', file=sys.stderr)
+            raise ScoreError(
+                '{} could not be found in solution key'.format(sub))
 
         for key in sub_key:
             if key in sol_key:
@@ -75,8 +84,9 @@ def calc_recall(submitted, solution):
         sub_key = submitted[sub]
         sol_key = solution.get(sub)
         if sol_key is None:
-            print(sub + ' Could not be found in solution key', file=sys.stderr)
-            sys.exit(1)
+            print(sub, 'could not be found in solution key', file=sys.stderr)
+            raise ScoreError(
+                '{} could not be found in solution key'.format(sub))
 
         for key in sol_key:
             if key in sub_key:
@@ -128,7 +138,7 @@ def score(submitted_answer, solution_key, include_classes=None):
     for key in keys:
         if key not in f1_score:
             print(key, 'not in the available keys', file=sys.stderr)
-            sys.exit(1)
+            raise ScoreError('{} not in the available keys'.format(key))
 
         fin_f_score += f1_score[key]
         try:

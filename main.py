@@ -1,17 +1,30 @@
 """Check pull requests and score submitted answers."""
+from collections import defaultdict, Mapping
 import json
 import os
 from glob import iglob
 
-from gen_markdown import (F1_SCORE, PRECISION, RECALL, SCORE_FILE, SOLUTIONS,
-                          gen_md)
+from gen_markdown import (F1_SCORE, F1_SCORE_OLD, PRECISION, PRECISION_OLD,
+                          RECALL, RECALL_OLD, SCORE_FILE, SOLUTIONS, gen_md)
 from pr_validation import validate
-from solution_checker import score
+from solution_checker import ScoreError, score
 
 SUBMISSION_PATH = './submissions/*/*.csv'
 TRAVIS_COMMIT_RANGE = 'TRAVIS_COMMIT_RANGE'
 MASTER_HEAD_RANGE = 'master..HEAD'
 TRAVIS_PULL_REQUEST_SLUG = 'TRAVIS_PULL_REQUEST_SLUG'
+SCORE_FAIL = 'auto-scoring failed'
+
+
+def update(old_dict, u_dict):
+    """Update dict recursively and create defaultdict if no key is found."""
+    for key, val in u_dict.items():
+        if isinstance(val, Mapping):
+            r_dict = update(old_dict.get(key, defaultdict(dict)), val)
+            old_dict[key] = r_dict
+        else:
+            old_dict[key] = u_dict[key]
+    return old_dict
 
 
 def check(commit_range=None, branch_slug=None):
@@ -33,6 +46,7 @@ def check_scores():
     """Check scores."""
     with open(SCORE_FILE, 'r+') as score_file:
         scores = json.load(score_file)
+        scores_copy = update({}, scores)
         score_file.seek(0)
         score_file.truncate()  # clear file
         for submitted in iglob(SUBMISSION_PATH):
@@ -41,16 +55,28 @@ def check_scores():
             parts = team_challenge.split('_')
             challenge = str(parts[-1])
             team = ''.join(parts[:-1])
-            solutions = SOLUTIONS[challenge]
-            for sol_path in solutions:
-                fin_r_score, fin_p_score, fin_f_score = score(
-                    submitted, sol_path)
+            for team, results in scores.items():
+                scores_copy[team][challenge][F1_SCORE_OLD] = results[
+                    challenge].get(F1_SCORE, '-')
+                scores_copy[team][challenge][PRECISION_OLD] = results[
+                    challenge].get(PRECISION, '-')
+                scores_copy[team][challenge][RECALL_OLD] = results[
+                    challenge].get(RECALL, '-')
+            for sol_path in SOLUTIONS[challenge]:
+                try:
+                    fin_r_score, fin_p_score, fin_f_score = score(
+                        submitted, sol_path)
+                except ScoreError:
+                    update(scores_copy, {team: {challenge: {
+                        RECALL: SCORE_FAIL, PRECISION: SCORE_FAIL,
+                        F1_SCORE: SCORE_FAIL}}})
                 # FIXME: Handle cases of more than one solution per challenge
-                scores.update({team: {challenge: {
-                    RECALL: fin_r_score, PRECISION: fin_p_score,
-                    F1_SCORE: fin_f_score}}})
-            print(scores)
-        json.dump(scores, score_file)
+                else:
+                    update(scores_copy, {team: {challenge: {
+                        RECALL: fin_r_score, PRECISION: fin_p_score,
+                        F1_SCORE: fin_f_score}}})
+            print(scores_copy)
+        json.dump(scores_copy, score_file)
 
 
 def main():
