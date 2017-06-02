@@ -10,6 +10,9 @@ BRANCH_SLUG = 'branch_slug'
 COMMIT_RANGE = 'commit_range'
 REPO_PATH = 'repo_path'
 ALLOWED_CHALLENGES = 'allowed_challenges'
+CHALLENGES = ['2', '3', '4', 'bonus', 'test']
+SUBMISSIONS = 'submissions'
+USERNAME_CHALLENGE = '{}_{}.csv.gpg'
 
 
 def parse_command_line():
@@ -45,9 +48,11 @@ def validate(commit_range, branch_slug, allowed_challenges=None, repo=None):
     change_list = changes.strip().split('\n')
     username = branch_slug.split('/')[0]
     if allowed_challenges is None:
-        allowed_challenges = [2, 3, 4, 'bonus', 'test']
+        allowed_challenges = CHALLENGES
     allowed = [
-        '{}_{}'.format(username, challenge)
+        os.path.join(
+            SUBMISSIONS, str(challenge),
+            USERNAME_CHALLENGE.format(username, challenge))
         for challenge in allowed_challenges]
     unallowed = [fil for fil in change_list if fil not in allowed]
     if not unallowed:
@@ -55,9 +60,12 @@ def validate(commit_range, branch_slug, allowed_challenges=None, repo=None):
         return
     print(
         'All files changed are not equal to '
-        '[GitHub username]_[challenge number].csv.')
-    print('Your GitHub username is: ', username)
-    print('Allowed challenges to test are: ', allowed_challenges)
+        '[GitHub username]_[challenge number].csv.gpg')
+    print('Your GitHub username is:', username)
+    print('Allowed challenges to test are:', allowed_challenges)
+    print('Allowed changed files would be:')
+    for fil in allowed:
+        print(fil)
     print('Unallowed changes in:')
     for fil in unallowed:
         print(fil)
