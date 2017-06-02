@@ -8,5 +8,5 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" -o "$TRAVIS_BRANCH" != "$SOURCE_BRANCH" ]
     echo "Skipping decryption"
     exit 0
 fi
-source ./scripts/get_keys
-source ./gpg/decrypt.sh
+./scripts/get_keys
+./gpg/decrypt.sh ./9515E8E4-pass
