@@ -28,6 +28,11 @@ SOLUTIONS = {
         'solutions/bonus/rare_events_test_ccv_obfuscated.csv'],
     'test': ['solutions/test/toy_events_solution.csv']
 }
+PROTEIN_ATLAS = 'Data provided by the [Human Protein Atlas]({})\n\n'
+CYTO_CONFERENCE = 'Challenge hosted by [cytoconference.org]({})\n\n'
+LEADERBOARD_HEAD = '# Leaderboard\n\n'
+CHALLENGE_HEAD = '## Challenge {}\n\n'
+INSTRUCTIONS = 'INSTRUCTIONS.md'
 
 
 def make_table(scores, challenge):
@@ -48,6 +53,8 @@ def gen_md(path=None):
     if path is None:
         path = SCORE_FILE
     text = ''
+    with open(INSTRUCTIONS, 'r') as instructions_file:
+        instructions = instructions_file.read()
     with open(path, 'r') as score_file:
         scores = json.load(score_file)
     tables = {
@@ -55,15 +62,15 @@ def gen_md(path=None):
     tables = OrderedDict(sorted(tables.items(), key=lambda t: t[0]))
     with open(README, 'r+') as readme:
         readme.truncate()  # clear file
+        text += LEADERBOARD_HEAD
         for challenge, table in tables.items():
             if table:
-                text += '## Challenge {}\n\n'.format(challenge)
+                text += CHALLENGE_HEAD.format(challenge)
                 text += tabulate(table, HEADERS, tablefmt="pipe")
                 text += '\n\n'
-        text += (
-            'Data provided by the [Human Protein Atlas]({})\n\n'
-            'Challenge hosted by [cytoconference.org]({})\n\n'.format(
-                *LINKS))
+        link_text = PROTEIN_ATLAS + CYTO_CONFERENCE
+        text += link_text.format(*LINKS)
+        text += instructions
         print(text)
         readme.write(text)
 
