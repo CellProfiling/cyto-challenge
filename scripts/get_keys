@@ -12,6 +12,7 @@ tar -xvf secrets.tar
 chmod 600 ./cyto_github_deploy
 eval `ssh-agent -s`
 ssh-add cyto_github_deploy
+ssh-add -l
 
 # Import the pgp key into gpg
 chmod 600 ./cyto_encryption.asc
