@@ -81,7 +81,6 @@ def gen_md(path=None):
         link_text = PROTEIN_ATLAS + CYTO_CONFERENCE
         text += link_text.format(*LINKS)
         text += instructions
-        print(text)
         readme.write(text)
 
 
