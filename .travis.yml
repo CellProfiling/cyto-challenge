@@ -14,6 +14,3 @@ before_script:
 script: "./scripts/test"
 after_success:
 - "./scripts/deploy"
-before_install:
-- openssl aes-256-cbc -K $encrypted_d65680b40eb9_key -iv $encrypted_d65680b40eb9_iv
-  -in secrets.tar.enc -out secrets.tar -d
