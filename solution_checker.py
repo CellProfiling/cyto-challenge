@@ -143,11 +143,11 @@ def score(submitted_answer, solution_key, include_classes=None):
         fin_f_score += f1_score[key]
         try:
             fin_r_score += recall[key][REC]
-        except IndexError:
+        except KeyError:
             pass
         try:
             fin_p_score += precision[key][PREC]
-        except IndexError:
+        except KeyError:
             pass
     fin_f_score /= len(f1_score)
     fin_r_score /= len(f1_score)
