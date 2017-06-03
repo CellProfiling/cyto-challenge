@@ -12,4 +12,5 @@ ssh-add cyto_github_deploy
 
 # Import the pgp key into gpg
 chmod 600 ./cyto_encryption.asc
+gpg --list-secret-keys
 gpg --import < ./cyto_encryption.asc
