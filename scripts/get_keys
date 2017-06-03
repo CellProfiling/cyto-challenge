@@ -6,9 +6,9 @@ set -e # Exit with nonzero exit code if anything fails
 tar -xvf secrets.tar
 
 # Import the deploy key
-chmod 600 ./cyto-github-deploy
+chmod 600 ./cyto_github_deploy
 eval `ssh-agent -s`
-ssh-add cyto-github-deploy
+ssh-add cyto_github_deploy
 
 # Import the pgp key into gpg
 chmod 600 ./cyto_encryption.asc
