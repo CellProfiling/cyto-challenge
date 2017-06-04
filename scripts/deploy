@@ -39,5 +39,8 @@ fi
 # The delta will show diffs between new and old versions.
 git add -A .
 git commit -m "Deploy to GitHub Pages "$TARGET_BRANCH" branch: ${SHA}"
+
+ssh-add -l
+
 # Now that we're all set up, we can push.
 git push $SSH_REPO $TARGET_BRANCH
