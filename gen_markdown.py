@@ -56,9 +56,9 @@ def make_table(scores, challenge):
             continue
         inner = [team]
         inner.extend([
-            '{:.3f}'.format(results[challenge].get(col, 0))
-            if isinstance(results[challenge].get(col, 0), float)
-            else results[challenge][col]
+            '{:.3f}'.format(results[challenge][col])
+            if isinstance(results[challenge].get(col), float)
+            else results[challenge].get(col, 'N/A')
             for col in TAB_COL_ORDER])
         table.append(inner)
     return sorted(table, key=lambda x: x[1], reverse=True)
