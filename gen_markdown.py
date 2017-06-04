@@ -44,22 +44,24 @@ LEADERBOARD_HEAD = '# Leaderboard\n\n'
 CHALLENGE_HEAD = '## Challenge {}\n\n'
 INSTRUCTIONS = 'INSTRUCTIONS.md'
 DISCLAIMER = 'DISCLAIMER.md'
+TAB_COL_ORDER = [
+    F1_SCORE, F1_SCORE_OLD, PRECISION, PRECISION_OLD, RECALL, RECALL_OLD]
 
 
 def make_table(scores, challenge):
     """Make a list of lists for a challenge, that will constitute a table."""
-    table = sorted(
-        [
-            [
-                team, '{:.3f}'.format(results[challenge][F1_SCORE]),
-                '{:.3f}'.format(results[challenge].get(F1_SCORE_OLD, 0)),
-                '{:.3f}'.format(results[challenge][PRECISION]),
-                '{:.3f}'.format(results[challenge].get(PRECISION_OLD, 0)),
-                '{:.3f}'.format(results[challenge][RECALL]),
-                '{:.3f}'.format(results[challenge].get(RECALL_OLD, 0))]
-            for team, results in scores.items() if results.get(challenge)],
-        key=lambda x: x[1], reverse=True)
-    return table
+    table = []
+    for team, results in scores.items():
+        if not results.get(challenge):
+            continue
+        inner = [team]
+        inner.extend([
+            '{:.3f}'.format(results[challenge].get(col, 0))
+            if isinstance(results[challenge].get(col, 0), float)
+            else results[challenge][col]
+            for col in TAB_COL_ORDER])
+        table.append(inner)
+    return sorted(table, key=lambda x: x[1], reverse=True)
 
 
 def gen_md(path=None):
