@@ -60,11 +60,11 @@ def check_scores():
             team = ''.join(parts[:-1])
             for team, results in scores.items():
                 scores_copy[team][challenge][F1_SCORE_OLD] = results[
-                    challenge].get(F1_SCORE, '-')
+                    challenge].get(F1_SCORE, 0)
                 scores_copy[team][challenge][PRECISION_OLD] = results[
-                    challenge].get(PRECISION, '-')
+                    challenge].get(PRECISION, 0)
                 scores_copy[team][challenge][RECALL_OLD] = results[
-                    challenge].get(RECALL, '-')
+                    challenge].get(RECALL, 0)
             for sol_path in SOLUTIONS[challenge]:
                 try:
                     fin_r_score, fin_p_score, fin_f_score = score(

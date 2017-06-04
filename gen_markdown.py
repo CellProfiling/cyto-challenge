@@ -52,11 +52,11 @@ def make_table(scores, challenge):
         [
             [
                 team, '{:.3f}'.format(results[challenge][F1_SCORE]),
-                '{:.3f}'.format(results[challenge][F1_SCORE_OLD]),
+                '{:.3f}'.format(results[challenge].get(F1_SCORE_OLD, 0)),
                 '{:.3f}'.format(results[challenge][PRECISION]),
-                '{:.3f}'.format(results[challenge][PRECISION_OLD]),
+                '{:.3f}'.format(results[challenge].get(PRECISION_OLD, 0)),
                 '{:.3f}'.format(results[challenge][RECALL]),
-                '{:.3f}'.format(results[challenge][RECALL_OLD])]
+                '{:.3f}'.format(results[challenge].get(RECALL_OLD, 0))]
             for team, results in scores.items() if results.get(challenge)],
         key=lambda x: x[1], reverse=True)
     return table
