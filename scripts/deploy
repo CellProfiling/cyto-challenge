@@ -40,6 +40,9 @@ fi
 git add -A .
 git commit -m "Deploy to GitHub Pages "$TARGET_BRANCH" branch: ${SHA}"
 
+# Import the deploy key
+eval `ssh-agent -s`
+ssh-add ../cyto_github_deploy
 ssh-add -l
 
 # Now that we're all set up, we can push.

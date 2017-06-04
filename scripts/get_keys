@@ -8,11 +8,8 @@ openssl aes-256-cbc -K $encrypted_d65680b40eb9_key \
 # Extract the secrets from the archive
 tar -xvf secrets.tar
 
-# Import the deploy key
+# Set the correct permission
 chmod 600 ./cyto_github_deploy
-eval `ssh-agent -s`
-ssh-add cyto_github_deploy
-ssh-add -l
 
 # Import the pgp key into gpg
 chmod 600 ./cyto_encryption.asc
