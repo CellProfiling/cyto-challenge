@@ -1,11 +1,12 @@
 """Check pull requests and score submitted answers."""
-from collections import defaultdict, Mapping
 import json
 import os
+from collections import Mapping, defaultdict
 from glob import iglob
 
-from gen_markdown import (F1_SCORE, F1_SCORE_OLD, PRECISION, PRECISION_OLD,
-                          RECALL, RECALL_OLD, SCORE_FILE, SOLUTIONS, gen_md)
+from gen_markdown import (CHALLENGE_BONUS, F1_SCORE, F1_SCORE_OLD, PRECISION,
+                          PRECISION_OLD, RECALL, RECALL_OLD, SCORE_FILE,
+                          SOLUTIONS, gen_md)
 from pr_validation import validate
 from solution_checker import ScoreError, score
 
@@ -54,6 +55,8 @@ def check_scores():
             _, team_challenge = os.path.split(base)
             parts = team_challenge.split('_')
             challenge = str(parts[-1])
+            if challenge == CHALLENGE_BONUS:
+                continue
             team = ''.join(parts[:-1])
             for team, results in scores.items():
                 scores_copy[team][challenge][F1_SCORE_OLD] = results[

@@ -21,16 +21,22 @@ F1_SCORE = 'f1_score'
 RECALL_OLD = 'recall_old'
 PRECISION_OLD = 'precision_old'
 F1_SCORE_OLD = 'f1_score_old'
+CHALLENGE_1 = '1'
+CHALLENGE_2 = '2'
+CHALLENGE_3 = '3'
+CHALLENGE_4 = '4'
+CHALLENGE_BONUS = 'bonus'
+CHALLENGE_TEST = 'test'
 SOLUTIONS = {
-    '2': ['solutions/challenge2/major13_test_obfuscated.csv'],
-    '3': ['solutions/challenge3/rare_events_test_obfuscated.csv'],
-    '4': [
+    CHALLENGE_2: ['solutions/challenge2/major13_test_obfuscated.csv'],
+    CHALLENGE_3: ['solutions/challenge3/rare_events_test_obfuscated.csv'],
+    CHALLENGE_4: [
         'solutions/challenge4/class_disc_test_obfuscated.csv',
         'solutions/challenge4/rare_events_class_disc_test_obfuscated.csv'],
-    'bonus': [
+    CHALLENGE_BONUS: [
         'solutions/bonus/major13_test_ccv_obfuscated.csv',
         'solutions/bonus/rare_events_test_ccv_obfuscated.csv'],
-    'test': ['solutions/test/toy_events_solution.csv']
+    CHALLENGE_TEST: ['solutions/test/toy_events_solution.csv']
 }
 PROTEIN_ATLAS = 'Data provided by the [Human Protein Atlas]({})\n\n'
 CYTO_CONFERENCE = 'Challenge hosted by [cytoconference.org]({})\n\n'
@@ -45,11 +51,12 @@ def make_table(scores, challenge):
     table = sorted(
         [
             [
-                team, results[challenge][F1_SCORE],
-                results[challenge][F1_SCORE_OLD],
-                results[challenge][PRECISION],
-                results[challenge][PRECISION_OLD],
-                results[challenge][RECALL], results[challenge][RECALL_OLD]]
+                team, '{:.3f}'.format(results[challenge][F1_SCORE]),
+                '{:.3f}'.format(results[challenge][F1_SCORE_OLD]),
+                '{:.3f}'.format(results[challenge][PRECISION]),
+                '{:.3f}'.format(results[challenge][PRECISION_OLD]),
+                '{:.3f}'.format(results[challenge][RECALL]),
+                '{:.3f}'.format(results[challenge][RECALL_OLD])]
             for team, results in scores.items() if results.get(challenge)],
         key=lambda x: x[1], reverse=True)
     return table
