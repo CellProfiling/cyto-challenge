@@ -96,7 +96,7 @@ def challenge4_score(f1_score, precision, recall):
 
     for key in f1_score:
         if key not in f1_score:
-            fin_f_score = 0
+            pass
         else:
             fin_f_score += f1_score[key]
         try:
