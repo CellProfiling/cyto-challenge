@@ -29,5 +29,5 @@ rm -rf /tmp/gnupg
 mkdir -m 700 /tmp/gnupg
 gpg --homedir /tmp/gnupg --import C3022F19-public.key
 gpg -q --yes --encrypt --homedir /tmp/gnupg --trust-model always \
-  --output $SECRETFILEOUT --recipient C3022F19 $SECRETABSPATH
+  --output $SECRETFILEOUT --recipient 9515E8E4! $SECRETABSPATH
 rm -rf /tmp/gnupg

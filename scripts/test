@@ -1,0 +1,5 @@
+#!/bin/sh
+set -e # Exit with nonzero exit code if anything fails
+
+cd "$(dirname "$0")/.."
+python3 -m main
