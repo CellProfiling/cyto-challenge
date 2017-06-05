@@ -11,16 +11,13 @@ LINKS = [
     'http://cytoconference.org/2017/Program/Image-Analysis-Challenge.aspx',
 ]
 HEADERS = [
-    'Team', 'F1 score', 'Previous F1 Score', 'Precision', 'Previous precision',
-    'Recall', 'Previous recall'
+    'Team', 'F1 score', 'Highest F1 Score', 'Precision', 'Recall'
 ]
 SCORE_FILE = 'scores.json'
 RECALL = 'recall'
 PRECISION = 'precision'
 F1_SCORE = 'f1_score'
-RECALL_OLD = 'recall_old'
-PRECISION_OLD = 'precision_old'
-F1_SCORE_OLD = 'f1_score_old'
+F1_HIGH = 'f1_high'
 CHALLENGE_1 = '1'
 CHALLENGE_2 = '2'
 CHALLENGE_3 = '3'
@@ -44,8 +41,7 @@ LEADERBOARD_HEAD = '# Leaderboard\n\n'
 CHALLENGE_HEAD = '## Challenge {}\n\n'
 INSTRUCTIONS = 'INSTRUCTIONS.md'
 DISCLAIMER = 'DISCLAIMER.md'
-TAB_COL_ORDER = [
-    F1_SCORE, F1_SCORE_OLD, PRECISION, PRECISION_OLD, RECALL, RECALL_OLD]
+TAB_COL_ORDER = [F1_SCORE, F1_HIGH, PRECISION, RECALL]
 
 
 def make_table(scores, challenge):
