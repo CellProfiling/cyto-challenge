@@ -127,10 +127,9 @@ def score(submitted_answer, solution_key, include_classes=None):
 
     for key in keys:
         if key not in f1_score:
-            print(key, 'not in the available keys', file=sys.stderr)
-            sys.exit(1)
-
-        fin_f_score += f1_score[key]
+            fin_f_score = 0
+        else:
+            fin_f_score += f1_score[key]
         try:
             fin_r_score += recall[key][REC]
         except IndexError:
