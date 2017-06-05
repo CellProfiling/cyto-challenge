@@ -25,11 +25,11 @@ CHALLENGE_4 = '4'
 CHALLENGE_BONUS = 'bonus'
 CHALLENGE_TEST = 'test'
 SOLUTIONS = {
-    CHALLENGE_2: ['solutions/challenge2/major13_test_obfuscated.csv'],
-    CHALLENGE_3: ['solutions/challenge3/rare_events_test_obfuscated.csv'],
+    CHALLENGE_2: ['solutions/2/major13_test_obfuscated.csv'],
+    CHALLENGE_3: ['solutions/3/rare_events_test_obfuscated.csv'],
     CHALLENGE_4: [
-        'solutions/challenge4/class_disc_test_obfuscated.csv',
-        'solutions/challenge4/rare_events_class_disc_test_obfuscated.csv'],
+        'solutions/4/class_disc_test_obfuscated.csv',
+        'solutions/4/rare_events_class_disc_test_obfuscated.csv'],
     CHALLENGE_BONUS: [
         'solutions/bonus/major13_test_ccv_obfuscated.csv',
         'solutions/bonus/rare_events_test_ccv_obfuscated.csv'],
