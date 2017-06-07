@@ -11,4 +11,4 @@ fi
 ./scripts/get_keys
 ./gpg/decrypt.sh
 ./scripts/clone
-cp ./out/scores.json ./
+cp -v ./out/scores.json ./
