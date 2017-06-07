@@ -49,7 +49,6 @@ def get_novel_ids(solution, novel_classes):
 
 
 def translate_unknowns(submitted, novel, known_classes):
-    novel_to_submitted = defaultdict(lambda: defaultdict(int))
     submitted_to_novel = defaultdict(lambda: defaultdict(int))
     submitted_translation = {}
     occupied = set()
@@ -63,7 +62,6 @@ def translate_unknowns(submitted, novel, known_classes):
 
         for c in solution_classes:
             for d in submitted_classes:
-                novel_to_submitted[c][d] += 1
                 submitted_to_novel[d][c] += 1
 
     # I am aware that this is fugly, but it works
@@ -81,11 +79,11 @@ def translate_unknowns(submitted, novel, known_classes):
         occupied.add(current)
         submitted_translation[d] = current
 
-    for sub in submitted:
-        sub_classes = submitted[sub]
-        for i in range(len(sub_classes)):
-            if sub_classes[i] in submitted_translation:
-                sub_classes[i] = submitted_translation[sub_classes[i]]
+    for sub_classes in submitted.values():
+        for i, c in enumerate(sub_classes):
+            if c in submitted_translation:
+                sub_classes[i] = submitted_translation[c]
+
     return submitted
 
 
