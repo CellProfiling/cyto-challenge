@@ -40,6 +40,7 @@ LEADERBOARD_HEAD = '# Leaderboard\n\n'
 CHALLENGE_HEAD = '## Challenge {}\n\n'
 INSTRUCTIONS = 'INSTRUCTIONS.md'
 DISCLAIMER = 'DISCLAIMER.md'
+DEADLINE = 'DEADLINE.md'
 TAB_COL_ORDER = [F1_SCORE, F1_HIGH, PRECISION, RECALL]
 
 
@@ -59,15 +60,17 @@ def make_table(scores, challenge):
     return sorted(table, key=lambda x: x[1], reverse=True)
 
 
+def read_file(path):
+    """Open and read file at path and return contents."""
+    with open(path, 'r') as fil:
+        return fil.read()
+
+
 def gen_md(path=None):
     """Generate the readme file."""
     if path is None:
         path = SCORE_FILE
     text = ''
-    with open(INSTRUCTIONS, 'r') as instructions_file:
-        instructions = instructions_file.read()
-    with open(DISCLAIMER, 'r') as disclaimer_file:
-        disclaimer = disclaimer_file.read()
     with open(path, 'r') as score_file:
         scores = json.load(score_file)
     tables = {
@@ -75,7 +78,8 @@ def gen_md(path=None):
     tables = OrderedDict(sorted(tables.items(), key=lambda t: t[0]))
     with open(README, 'r+') as readme:
         readme.truncate()  # clear file
-        text += '{}\n\n'.format(disclaimer)
+        text += '{}\n\n'.format(read_file(DEADLINE))
+        text += '{}\n\n'.format(read_file(DISCLAIMER))
         text += LEADERBOARD_HEAD
         for challenge, table in tables.items():
             if table:
@@ -84,7 +88,7 @@ def gen_md(path=None):
                 text += '\n\n'
         link_text = PROTEIN_ATLAS + CYTO_CONFERENCE
         text += link_text.format(*LINKS)
-        text += instructions
+        text += read_file(INSTRUCTIONS)
         readme.write(text)
 
 
