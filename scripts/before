@@ -11,4 +11,3 @@ fi
 ./scripts/get_keys
 ./gpg/decrypt.sh
 ./scripts/clone
-cp -v ./out/scores.json ./

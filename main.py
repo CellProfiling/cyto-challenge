@@ -48,6 +48,7 @@ def check_scores():
     """Check scores."""
     with open(SCORE_FILE, 'r+') as score_file:
         scores = json.load(score_file)
+        print(scores)
         scores = update({}, scores)
         score_file.seek(0)
         score_file.truncate()  # clear file
