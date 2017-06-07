@@ -1,9 +1,11 @@
-from collections import defaultdict
-from solution_checker import *
+"""Calculate score fow answers to challenge 4."""
 import argparse
-import csv
 import sys
+from collections import defaultdict
 
+from solution_checker import (ScoreError, calc_f1_score, calc_precision,
+                              calc_recall, calculate_and_print_score,
+                              read_key_file)
 
 PREC = 'prec'
 REC = 'rec'
@@ -17,11 +19,10 @@ def parseargs():
     parser = argparse.ArgumentParser()
     parser.add_argument('submitted_answer')
     parser.add_argument('solution_key')
-    parser.add_argument('-n', '--new', action='append',
-                        help=('Specify novel class. '
-                              'Can be used multiple times'))
+    parser.add_argument('new_classes',
+                        help='Specify path to novel classes in a csv file.')
     args = parser.parse_args()
-    return args.submitted_answer, args.solution_key, set(args.new)
+    return args.submitted_answer, args.solution_key, args.new_classes
 
 
 def get_known_classes(solution, novel_classes):
@@ -46,6 +47,7 @@ def get_novel_ids(solution, novel_classes):
 
 
 def translate_unknowns(submitted, novel, known_classes):
+    """Translate unknown classes."""
     submitted_to_novel = defaultdict(lambda: defaultdict(int))
     submitted_translation = {}
     occupied = set()
@@ -85,11 +87,19 @@ def translate_unknowns(submitted, novel, known_classes):
     return submitted
 
 
-def main():
-    submitted_answer, solution_key, novel_classes = parseargs()
-
+def score_4(submitted_answer, solution_key, novel_classes):
+    """Score challenge 4."""
     submitted = read_key_file(submitted_answer)
     solution = read_key_file(solution_key)
+    if len(submitted) != len(solution):
+        print('Differring number of answers and solutions', file=sys.stderr)
+        print('Num answers: {}, Num solutions: {}'.format(
+            len(submitted), len(solution), file=sys.stderr))
+        raise ScoreError()
+    novel_classes = read_key_file(novel_classes)
+    novel_classes = [
+        class_ for row in novel_classes.values() for class_ in row]
+    print(novel_classes)
 
     known_classes = get_known_classes(solution, novel_classes)
     novel = get_novel_ids(solution, novel_classes)
@@ -100,7 +110,13 @@ def main():
     precision = calc_precision(translated_submitted, solution)
     recall = calc_recall(translated_submitted, solution)
     f1_score = calc_f1_score(precision, recall)
-    calculate_and_print_score(f1_score, precision, recall)
+    return calculate_and_print_score(f1_score, precision, recall)
+
+
+def main():
+    """Run main."""
+    submitted_answer, solution_key, novel_classes = parseargs()
+    score_4(submitted_answer, solution_key, novel_classes)
 
 
 if __name__ == '__main__':

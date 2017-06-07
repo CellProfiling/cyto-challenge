@@ -4,6 +4,7 @@ import os
 from collections import Mapping, defaultdict
 from glob import iglob
 
+from challenge_4_checker import score_4
 from gen_markdown import (CHALLENGE_4, CHALLENGE_BONUS, F1_HIGH, F1_SCORE,
                           PRECISION, RECALL, SCORE_FILE, SOLUTIONS, gen_md)
 from pr_validation import validate
@@ -14,6 +15,7 @@ TRAVIS_COMMIT_RANGE = 'TRAVIS_COMMIT_RANGE'
 MASTER_HEAD_RANGE = 'master..HEAD'
 TRAVIS_PULL_REQUEST_SLUG = 'TRAVIS_PULL_REQUEST_SLUG'
 SCORE_FAIL = 'auto-scoring failed'
+NEW_CLASSES_PATH = './solutions/4/new_classes.csv'
 
 
 def update(old_dict, u_dict):
@@ -54,18 +56,21 @@ def check_scores():
             _, team_challenge = os.path.split(base)
             parts = team_challenge.split('_')
             challenge = str(parts[-1])
-            if challenge == CHALLENGE_4 or challenge == CHALLENGE_BONUS:
+            if challenge == CHALLENGE_BONUS:
                 continue
             team = ''.join(parts[:-1])
             for sol_path in SOLUTIONS[challenge]:
                 try:
-                    fin_r_score, fin_p_score, fin_f_score = score(
-                        submitted, sol_path)
+                    if challenge == CHALLENGE_4:
+                        fin_r_score, fin_p_score, fin_f_score = score_4(
+                            submitted, sol_path, NEW_CLASSES_PATH)
+                    else:
+                        fin_r_score, fin_p_score, fin_f_score = score(
+                            submitted, sol_path)
                 except ScoreError:
                     update(scores, {team: {challenge: {
                         RECALL: SCORE_FAIL, PRECISION: SCORE_FAIL,
                         F1_SCORE: SCORE_FAIL}}})
-                # FIXME: Handle cases of more than one solution per challenge
                 else:
                     update(scores, {team: {challenge: {
                         RECALL: fin_r_score, PRECISION: fin_p_score,
