@@ -78,7 +78,7 @@ def check_scores():
                     if fin_f_score > scores[team][challenge].get(
                             F1_HIGH, 0):
                         scores[team][challenge][F1_HIGH] = fin_f_score
-            print(scores)
+        print(scores)
         json.dump(scores, score_file)
         score_file.write('\n')
 
