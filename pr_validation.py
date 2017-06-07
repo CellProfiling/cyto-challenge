@@ -13,6 +13,8 @@ ALLOWED_CHALLENGES = 'allowed_challenges'
 CHALLENGES = ['2', '3', '4', 'bonus', 'test']
 SUBMISSIONS = 'submissions'
 USERNAME_CHALLENGE = '{}_{}.csv.gpg'
+TEAMS = 'teams'
+USERNAME_TEAM = '{}_team.csv.gpg'
 
 
 def parse_command_line():
@@ -47,6 +49,7 @@ def validate(commit_range, branch_slug, allowed_challenges=None, repo=None):
         stop(cwd, 1)
     change_list = changes.strip().split('\n')
     username = branch_slug.split('/')[0]
+    required = os.path.join(TEAMS, USERNAME_TEAM.format(username))
     if allowed_challenges is None:
         allowed_challenges = CHALLENGES
     allowed = [
@@ -54,7 +57,15 @@ def validate(commit_range, branch_slug, allowed_challenges=None, repo=None):
             SUBMISSIONS, str(challenge),
             USERNAME_CHALLENGE.format(username, challenge))
         for challenge in allowed_challenges]
+    allowed.append(required)
     unallowed = [fil for fil in change_list if fil not in allowed]
+    if required not in change_list and not os.path.exists(required):
+        print(
+            'Team info csv file is missing or is not not equal to '
+            '[GitHub username]_[team].csv.gpg')
+        print('Your GitHub username is:', username)
+        print('You team info csv file should be committed as:', required)
+        stop(cwd, 1)
     if not unallowed:
         stop(cwd)
         return
