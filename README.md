@@ -10,6 +10,12 @@ By submitting a solution to any of these challenges, you agree to the following:
 
 # Leaderboard
 
+## Challenge 4
+
+| Team           |   F1 score |   Highest F1 Score |   Precision |   Recall |
+|:---------------|-----------:|-------------------:|------------:|---------:|
+| MartinHjelmare |      0.775 |              0.775 |       0.951 |    0.715 |
+
 ## Challenge test
 
 | Team           |   F1 score |   Highest F1 Score |   Precision |   Recall |
@@ -64,10 +70,21 @@ git checkout -b awesome-solution master
 cp ~/my_experiments/YOUR_GIT_USERNAME_2.csv ./submissions/2/
 ```
 
+- Add a team info csv file in the `teams` directory. The team info csv file should have three columns, `author`, `affiliation`, `contact info`. Enter all the info for all team members in this file. We will not display this info on the leader board page. We will only keep this info to be able to contact the teams during and after the challenge. You will encrypt the csv file in the next step, so your info will not be public. We have added an unencrypted team info csv file (`MartinHjelmare_team.csv`), as an example in the `teams` directory.
+
+| author          | affiliation                                              | contact info        |
+|-----------------|----------------------------------------------------------|---------------------|
+| Martin Hjelmare | Royal Institute of Technology SE-171 21 Stockholm Sweden | example@example.com |
+
+```
+cp ~/my_experiments/YOUR_GIT_USERNAME_team.csv ./teams/
+```
+
 - Encrypt each submitted csv file with gpg using our public pgp key. Since you don't want to give your competitors a free ride, all submissions must be encrypted. We have included a bash script that does this for you. This should work in Linux and Mac environments. You must have `gpg` installed. We have also added an `.gitignore` file to the repo, to avoid unencrypted csv files from being committed by mistake. The script will encrypt the contents of your csv file and create a new file with the `.gpg` extension in the same directory as your csv file. Your csv file will remain in the directory.
 
 ```
 ./gpg/encrypt.sh ./submissions/2/YOUR_GIT_USERNAME_2.csv
+./gpg/encrypt.sh ./teams/YOUR_GIT_USERNAME_team.csv
 ```
 
 - Add your encrypted csv files and commit your changes. Write at minimum a short commit message. If you want to write something longer, you can call `commit` without the `-m` option which should open your preferred editor instead. If you write something longer, try to keep the header of the commit message within 50 characters and the body within 72 characters per line. A blank line should separate the header from the body of the commit message. Markdown is cool.
