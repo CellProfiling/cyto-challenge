@@ -100,3 +100,9 @@ ENV/
 
 # Never commit csv files unencrypted.
 *.csv
+
+# gpg key file
+*.asc
+
+# OS X file system meta data
+.DS_Store

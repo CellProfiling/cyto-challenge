@@ -1,0 +1,17 @@
+#!/bin/bash
+# Decrypt pgp key and add github deploy key to keyring
+set -e # Exit with nonzero exit code if anything fails
+
+openssl aes-256-cbc -K $encrypted_d65680b40eb9_key \
+  -iv $encrypted_d65680b40eb9_iv -in secrets.tar.enc -out secrets.tar -d
+
+# Extract the secrets from the archive
+tar -xvf secrets.tar
+
+# Set the correct permission
+chmod 600 ./cyto_github_deploy
+
+# Import the pgp key into gpg
+chmod 600 ./cyto_encryption.asc
+gpg --list-secret-keys
+gpg --import < ./cyto_encryption.asc

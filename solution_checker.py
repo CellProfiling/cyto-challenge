@@ -149,7 +149,36 @@ def score(submitted_answer, solution_key, include_classes=None):
     precision = calc_precision(submitted, solution)
     recall = calc_recall(submitted, solution)
     f1_score = calc_f1_score(precision, recall)
+<<<<<<< HEAD
     return calculate_and_print_score(f1_score, precision, recall)
+=======
+    fin_f_score = 0.0
+    fin_r_score = 0.0
+    fin_p_score = 0.0
+    if include_classes:
+        keys = include_classes
+    else:
+        keys = f1_score.keys()
+
+    for key in keys:
+        if key not in f1_score:
+            print(key, 'not in the available keys', file=sys.stderr)
+            raise ScoreError('{} not in the available keys'.format(key))
+
+        fin_f_score += f1_score[key]
+        if key in recall:
+            fin_r_score += recall[key][REC]
+        if key in precision:
+            fin_p_score += precision[key][PREC]
+    fin_f_score /= len(f1_score)
+    fin_r_score /= len(f1_score)
+    fin_p_score /= len(f1_score)
+
+    print('Recall:', fin_r_score)
+    print('Precision:', fin_p_score)
+    print('F1 score:', fin_f_score)
+    return fin_r_score, fin_p_score, fin_f_score
+>>>>>>> origin
 
 
 def main():

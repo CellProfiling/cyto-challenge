@@ -1,0 +1,5 @@
+#!/bin/bash
+# Copy readme, scores.json, .gitignore and _config.yml to /out directory.
+set -e # Exit with nonzero exit code if anything fails
+
+cp ./{.gitignore,_config.yml,README.md,scores.json} ./out/
