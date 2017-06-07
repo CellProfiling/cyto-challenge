@@ -27,9 +27,8 @@ def parseargs():
 def get_known_classes(solution, novel_classes):
     """Gets all classes that the challengers should already know"""
     known_classes = set()
-    for line in csv.reader(open(solution)):
-        for class_ in line[1:]:
-            class_ = class_.strip()
+    for classes in solution.values():
+        for class_ in classes:
             if class_ in novel_classes:
                 continue
             known_classes.add(class_)
@@ -39,12 +38,10 @@ def get_known_classes(solution, novel_classes):
 def get_novel_ids(solution, novel_classes):
     """Gets all ids with novel classes, and their full annotations"""
     novel = {}
-    for line in csv.reader(open(solution)):
-        id_ = line[0]
-        classes = {x.strip() for x in line[1:]}
-
+    for id_ in solution:
+        classes = solution[id_]
         if any(x in classes for x in novel_classes):
-            novel[id_] = classes
+            novel[id_] = set(classes)
     return novel
 
 
@@ -56,7 +53,8 @@ def translate_unknowns(submitted, novel, known_classes):
         submitted_classes = submitted.get(id_)
         if submitted_classes is None or submitted_classes[0] == '':
             print('%s has a bad input line' % id_)
-            sys.exit(1)
+            raise ScoreError()
+
         submitted_classes = set(submitted_classes) - known_classes
         solution_classes = novel[id_] - known_classes
 
@@ -89,10 +87,13 @@ def translate_unknowns(submitted, novel, known_classes):
 
 def main():
     submitted_answer, solution_key, novel_classes = parseargs()
-    known_classes = get_known_classes(solution_key, novel_classes)
-    novel = get_novel_ids(solution_key, novel_classes)
+
     submitted = read_key_file(submitted_answer)
     solution = read_key_file(solution_key)
+
+    known_classes = get_known_classes(solution, novel_classes)
+    novel = get_novel_ids(solution, novel_classes)
+
     translated_submitted = translate_unknowns(submitted, novel, known_classes)
 
     # From here, most of the code for rare classes can be used
