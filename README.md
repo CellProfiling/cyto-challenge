@@ -84,6 +84,7 @@ cp ~/my_experiments/YOUR_GIT_USERNAME_team.csv ./teams/
 
 ```
 ./gpg/encrypt.sh ./submissions/2/YOUR_GIT_USERNAME_2.csv
+./gpg/encrypt.sh ./teams/YOUR_GIT_USERNAME_team.csv
 ```
 
 - Add your encrypted csv files and commit your changes. Write at minimum a short commit message. If you want to write something longer, you can call `commit` without the `-m` option which should open your preferred editor instead. If you write something longer, try to keep the header of the commit message within 50 characters and the body within 72 characters per line. A blank line should separate the header from the body of the commit message. Markdown is cool.
