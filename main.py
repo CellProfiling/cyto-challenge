@@ -80,6 +80,7 @@ def check_scores():
                         scores[team][challenge][F1_HIGH] = fin_f_score
             print(scores)
         json.dump(scores, score_file)
+        score_file.write('\n')
 
 
 def main():
