@@ -1,5 +1,6 @@
 """Calculate score fow answers to challenge 4."""
 import argparse
+import sys
 from collections import defaultdict
 
 from solution_checker import (ScoreError, calc_f1_score, calc_precision,
@@ -90,9 +91,15 @@ def score_4(submitted_answer, solution_key, novel_classes):
     """Score challenge 4."""
     submitted = read_key_file(submitted_answer)
     solution = read_key_file(solution_key)
+    if len(submitted) != len(solution):
+        print('Differring number of answers and solutions', file=sys.stderr)
+        print('Num answers: {}, Num solutions: {}'.format(
+            len(submitted), len(solution), file=sys.stderr))
+        raise ScoreError()
     novel_classes = read_key_file(novel_classes)
     novel_classes = [
         class_ for row in novel_classes.values() for class_ in row]
+    print(novel_classes)
 
     known_classes = get_known_classes(solution, novel_classes)
     novel = get_novel_ids(solution, novel_classes)

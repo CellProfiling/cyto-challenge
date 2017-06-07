@@ -145,6 +145,7 @@ def score(submitted_answer, solution_key, include_classes=None):
         print('Differring number of answers and solutions', file=sys.stderr)
         print('Num answers: {}, Num solutions: {}'.format(
             len(submitted), len(solution), file=sys.stderr))
+        raise ScoreError()
 
     precision = calc_precision(submitted, solution)
     recall = calc_recall(submitted, solution)
