@@ -10,3 +10,5 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" -o "$TRAVIS_BRANCH" != "$SOURCE_BRANCH" ]
 fi
 ./scripts/get_keys
 ./gpg/decrypt.sh
+./scripts/clone
+cp ./out/scores.json ./
