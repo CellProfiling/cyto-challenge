@@ -137,18 +137,14 @@ def score(submitted_answer, solution_key, include_classes=None):
 
     for key in keys:
         if key not in f1_score:
-            pass
-        else:
-            fin_f_score += f1_score[key]
+            print(key, 'not in the available keys', file=sys.stderr)
+            raise ScoreError('{} not in the available keys'.format(key))
 
-        try:
+        fin_f_score += f1_score[key]
+        if key in recall:
             fin_r_score += recall[key][REC]
-        except KeyError:
-            pass
-        try:
+        if key in precision:
             fin_p_score += precision[key][PREC]
-        except KeyError:
-            pass
     fin_f_score /= len(f1_score)
     fin_r_score /= len(f1_score)
     fin_p_score /= len(f1_score)
