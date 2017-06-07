@@ -1,5 +1,5 @@
 from collections import defaultdict
-from solution_checker import read_key_file, calc_precision, calc_recall, score, calc_f1_score
+from solution_checker import read_key_file, calc_precision, calc_recall, calc_f1_score
 import argparse
 import csv
 import sys
