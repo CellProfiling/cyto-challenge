@@ -28,8 +28,7 @@ SOLUTIONS = {
     CHALLENGE_2: ['solutions/2/major13_test_obfuscated.csv'],
     CHALLENGE_3: ['solutions/3/rare_events_test_obfuscated.csv'],
     CHALLENGE_4: [
-        'solutions/4/class_disc_test_obfuscated.csv',
-        'solutions/4/rare_events_class_disc_test_obfuscated.csv'],
+        'solutions/4/novel_classes_class_disc_test.csv'],
     CHALLENGE_BONUS: [
         'solutions/bonus/major13_test_ccv_obfuscated.csv',
         'solutions/bonus/rare_events_test_ccv_obfuscated.csv'],
