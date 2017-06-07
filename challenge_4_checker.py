@@ -1,5 +1,5 @@
 from collections import defaultdict
-from solution_checker import read_key_file, calc_precision, calc_recall, calc_f1_score
+from solution_checker import *
 import argparse
 import csv
 import sys
@@ -87,27 +87,6 @@ def translate_unknowns(submitted, novel, known_classes):
     return submitted
 
 
-def challenge4_score(f1_score, precision, recall):
-    fin_f_score = 0.0
-    fin_r_score = 0.0
-    fin_p_score = 0.0
-
-    for key in f1_score:
-        if key in f1_score:
-            fin_f_score += f1_score[key]
-        if key in recall:
-            fin_r_score += recall[key][REC]
-        if key in precision:
-            fin_p_score += precision[key][PREC]
-    fin_f_score /= len(f1_score)
-    fin_r_score /= len(f1_score)
-    fin_p_score /= len(f1_score)
-
-    print('Recall:', fin_r_score)
-    print('Precision:', fin_p_score)
-    print('F1 score:', fin_f_score)
-    return fin_r_score, fin_p_score, fin_f_score
-
 def main():
     submitted_answer, solution_key, novel_classes = parseargs()
     known_classes = get_known_classes(solution_key, novel_classes)
@@ -120,9 +99,7 @@ def main():
     precision = calc_precision(translated_submitted, solution)
     recall = calc_recall(translated_submitted, solution)
     f1_score = calc_f1_score(precision, recall)
-    print(f1_score.keys())
-    print(translated_submitted)
-    challenge4_score(f1_score, precision, recall)
+    calculate_and_print_score(f1_score, precision, recall)
 
 
 if __name__ == '__main__':
