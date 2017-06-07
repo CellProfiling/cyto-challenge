@@ -12,4 +12,5 @@ REPO=`git config remote.origin.url`
 git clone $REPO out
 cd out
 git checkout $TARGET_BRANCH || git checkout --orphan $TARGET_BRANCH
+cp -v ./out/scores.json ./
 cd ..
