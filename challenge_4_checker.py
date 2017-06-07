@@ -95,18 +95,12 @@ def challenge4_score(f1_score, precision, recall):
     fin_p_score = 0.0
 
     for key in f1_score:
-        if key not in f1_score:
-            pass
-        else:
+        if key in f1_score:
             fin_f_score += f1_score[key]
-        try:
+        if key in recall:
             fin_r_score += recall[key][REC]
-        except IndexError:
-            pass
-        try:
+        if key in precision:
             fin_p_score += precision[key][PREC]
-        except IndexError:
-            pass
     fin_f_score /= len(f1_score)
     fin_r_score /= len(f1_score)
     fin_p_score /= len(f1_score)
