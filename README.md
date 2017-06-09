@@ -29,7 +29,7 @@ Challenge hosted by [cytoconference.org](http://cytoconference.org/2017/Program/
 
 # Generating results for submission
 
-We will only score challenge 2, 3 and 4. But you are welcome to submit results for the bonus challenge too.
+We will only score challenge 2, 3 and 4. But you are welcome to submit results for challenge 1 and the bonus challenge too. To do so, please send a short presentation (5 slides or less) to the cyto-challenge [email address](mailto:cytochallenge2017@gmail.com).
 
 - Go to the challenge data set [download page](http://www.proteinatlas.org/CYTO_challenge2017/) on the protein atlas. There you will now find the image test sets that contain the withheld images that you should use to generate your results for each challenge, using your trained model.
 - You only need to download two image test sets:
