@@ -1,3 +1,12 @@
+# Generating results for submission
+
+We will only score challenge 2, 3 and 4. But you are welcome to submit results for the bonus challenge too.
+
+- Go to the challenge data set [download page](http://www.proteinatlas.org/CYTO_challenge2017/) on the protein atlas. There you will now find the image test sets that contain the withheld images that you should use to generate your results for each challenge, using your trained model.
+- You only need to download two image test sets:
+  - major13_test.tar should be used for generating results for challenge 2, 4 and bonus.
+  - rare_events_test.tar should be used for generating results for challenge 3.
+
 # Result submission instructions
 
 Follow these instructions to submit your challenge results.
