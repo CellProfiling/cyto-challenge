@@ -17,11 +17,25 @@ By submitting a solution to any of these challenges, you agree to the following:
 
 # Leaderboard
 
+## Challenge 2
+
+| Team   |   F1 score |   Highest F1 Score |   Precision |   Recall |
+|:-------|-----------:|-------------------:|------------:|---------:|
+| Dapid  |       0.21 |               0.21 |       0.305 |    0.511 |
+
+## Challenge 3
+
+There is a problem with the uploaded image test set for challenge 3. We are working on a fix.
+
+| Team   | F1 score            | Highest F1 Score   | Precision           | Recall              |
+|:-------|:--------------------|:-------------------|:--------------------|:--------------------|
+| Dapid  | auto-scoring failed | N/A                | auto-scoring failed | auto-scoring failed |
+
 ## Challenge test
 
 | Team           |   F1 score |   Highest F1 Score |   Precision |   Recall |
 |:---------------|-----------:|-------------------:|------------:|---------:|
-| MartinHjelmare |       0.65 |               0.65 |        0.75 |    0.583 |
+| MartinHjelmare |       0.26 |               0.65 |         0.3 |    0.233 |
 
 Data provided by the [Human Protein Atlas](http://proteinatlas.org)
 
