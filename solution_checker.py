@@ -4,6 +4,8 @@ import csv
 import sys
 import collections
 
+from gen_markdown import CHALLENGE_1
+
 PREC = 'prec'
 REC = 'rec'
 TRUE_POS = 'tp'
@@ -18,6 +20,7 @@ class ScoreError(Exception):
 
 
 def calculate_and_print_score(f1_score, precision, recall):
+    """Calculate and print score."""
     fin_f_score = 0.0
     fin_r_score = 0.0
     fin_p_score = 0.0
@@ -44,11 +47,11 @@ def parseargs():
     parser = argparse.ArgumentParser()
     parser.add_argument('submitted_answer')
     parser.add_argument('solution_key')
-    parser.add_argument('-i', '--include', action='append',
-                        help=('Include the specified class. '
-                              'Can be used multiple times'))
+    parser.add_argument(
+        '-c', '--challenge', dest='challenge', type=str,
+        help='the challenge name')
     args = parser.parse_args()
-    return args.submitted_answer, args.solution_key, args.include
+    return args.submitted_answer, args.solution_key, args.challenge
 
 
 def read_key_file(f_path):
@@ -136,10 +139,25 @@ def calc_f1_score(precision, recall):
     return dict(f1_score)
 
 
-def score(submitted_answer, solution_key, include_classes=None):
+def score_1(submitted, solution):
+    """Slice dicts and return only nui, mito and nui+mito."""
+    nui_mito_sol = {
+        idx: classes for idx, classes in solution.items()
+        if ['Nucleoli'] == classes
+        or ['Mitochondria'] == classes
+        or ['Mitochondria', 'Nucleoli'] == sorted(classes)}
+    nui_mito_sub = {
+        idx: classes for idx, classes in submitted.items()
+        if idx in nui_mito_sol}
+    return nui_mito_sub, nui_mito_sol
+
+
+def score(submitted_answer, solution_key, challenge=None):
     """Score the submitted answer."""
     submitted = read_key_file(submitted_answer)
     solution = read_key_file(solution_key)
+    if challenge == CHALLENGE_1:
+        submitted, solution = score_1(submitted, solution)
 
     if len(submitted) != len(solution):
         print('Differring number of answers and solutions', file=sys.stderr)
@@ -155,8 +173,8 @@ def score(submitted_answer, solution_key, include_classes=None):
 
 def main():
     """Calculate score for answer."""
-    submitted_answer, solution_key, include_classes = parseargs()
-    score(submitted_answer, solution_key, include_classes)
+    submitted_answer, solution_key, challenge = parseargs()
+    score(submitted_answer, solution_key, challenge)
 
 
 if __name__ == '__main__':
