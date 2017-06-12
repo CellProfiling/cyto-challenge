@@ -106,3 +106,6 @@ ENV/
 
 # OS X file system meta data
 .DS_Store
+
+# jupyter notebooks
+*.ipynb

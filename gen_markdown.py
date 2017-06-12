@@ -25,6 +25,7 @@ CHALLENGE_4 = '4'
 CHALLENGE_BONUS = 'bonus'
 CHALLENGE_TEST = 'test'
 SOLUTIONS = {
+    CHALLENGE_1: ['solutions/1/major13_test_obfuscated_only_nui_mito.csv'],
     CHALLENGE_2: ['solutions/2/major13_test_obfuscated_nodup.csv'],
     CHALLENGE_3: ['solutions/3/rare_events_test_obfuscated_nodup.csv'],
     CHALLENGE_4: ['solutions/4/novel_classes_class_disc_test_nodup.csv'],
