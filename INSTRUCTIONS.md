@@ -1,10 +1,13 @@
 # Generating results for submission
 
-We will only score challenge 2, 3 and 4. But you are welcome to submit results for challenge 1 and the bonus challenge too. To do so, please send a short presentation (5 slides or less) to the cyto-challenge [email address](mailto:cytochallenge2017@gmail.com).
+We will only score challenge 1, 2, 3 and 4. But you are welcome to submit results for the bonus challenge too. To do so, please send a short presentation (5 slides or less) to the cyto-challenge [email address](mailto:cytochallenge2017@gmail.com).
+
+By popular demand, we have made and added a scorer for challenge 1.
+To submit a result for challenge 1, run you model on the images from the major13_test.tar set, and submit as for the other challenges. The scorer will extract the rows from the solution csv that only contain `Mitochondria` or only `Nucleoli`,  or only `Mitochondria` together with `Nucleoli` and only score the corresponding rows in your submitted result.
 
 - Go to the challenge data set [download page](http://www.proteinatlas.org/CYTO_challenge2017/) on the protein atlas. There you will now find the image test sets that contain the withheld images that you should use to generate your results for each challenge, using your trained model.
 - You only need to download two image test sets:
-  - major13_test.tar should be used for generating results for challenge 2, 4 and bonus.
+  - major13_test.tar should be used for generating results for challenge 1, 2, 4 and bonus.
   - rare_events_test.tar should be used for generating results for challenge 3.
     - Note: If you've downloaded rare_events_test.tar before 2017-06-12:16.00 CET, please download the image set again. The set uploaded before this time contained duplicate images.
 
