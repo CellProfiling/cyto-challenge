@@ -68,7 +68,7 @@ def check_scores():
                             submitted, sol_path, NEW_CLASSES_PATH)
                     else:
                         fin_r_score, fin_p_score, fin_f_score = score(
-                            submitted, sol_path)
+                            submitted, sol_path, challenge=challenge)
                 except ScoreError:
                     update(scores, {team: {challenge: {
                         RECALL: SCORE_FAIL, PRECISION: SCORE_FAIL,
