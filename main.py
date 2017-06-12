@@ -5,7 +5,7 @@ from collections import Mapping, defaultdict
 from glob import iglob
 
 from challenge_4_checker import score_4
-from gen_markdown import (CHALLENGE_1, CHALLENGE_4, CHALLENGE_BONUS, F1_HIGH,
+from gen_markdown import (CHALLENGE_4, CHALLENGE_BONUS, F1_HIGH,
                           F1_SCORE, PRECISION, RECALL, SCORE_FILE, SOLUTIONS,
                           gen_md)
 from pr_validation import validate
@@ -58,7 +58,7 @@ def check_scores():
             _, team_challenge = os.path.split(base)
             parts = team_challenge.split('_')
             challenge = str(parts[-1])
-            if challenge == CHALLENGE_1 or challenge == CHALLENGE_BONUS:
+            if challenge == CHALLENGE_BONUS:
                 continue
             team = ''.join(parts[:-1])
             for sol_path in SOLUTIONS[challenge]:
