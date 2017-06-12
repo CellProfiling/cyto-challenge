@@ -39,9 +39,6 @@ INSTRUCTIONS = 'INSTRUCTIONS.md'
 DISCLAIMER = 'DISCLAIMER.md'
 DEADLINE = 'DEADLINE.md'
 TAB_COL_ORDER = [F1_SCORE, F1_HIGH, PRECISION, RECALL]
-CHALLENGE_3_ISSUE = (
-    'There is a problem with the uploaded image test set for '
-    'challenge 3. We are working on a fix.\n\n')
 
 
 def make_table(scores, challenge):
@@ -84,8 +81,6 @@ def gen_md(path=None):
         for challenge, table in tables.items():
             if table:
                 text += CHALLENGE_HEAD.format(challenge)
-                if challenge == CHALLENGE_3:
-                    text += CHALLENGE_3_ISSUE
                 text += tabulate(table, HEADERS, tablefmt='pipe')
                 text += '\n\n'
         link_text = PROTEIN_ATLAS + CYTO_CONFERENCE
