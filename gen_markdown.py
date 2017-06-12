@@ -25,13 +25,10 @@ CHALLENGE_4 = '4'
 CHALLENGE_BONUS = 'bonus'
 CHALLENGE_TEST = 'test'
 SOLUTIONS = {
-    CHALLENGE_2: ['solutions/2/major13_test_obfuscated.csv'],
-    CHALLENGE_3: ['solutions/3/rare_events_test_obfuscated.csv'],
-    CHALLENGE_4: [
-        'solutions/4/novel_classes_class_disc_test.csv'],
-    CHALLENGE_BONUS: [
-        'solutions/bonus/major13_test_ccv_obfuscated.csv',
-        'solutions/bonus/rare_events_test_ccv_obfuscated.csv'],
+    CHALLENGE_2: ['solutions/2/major13_test_obfuscated_nodup.csv'],
+    CHALLENGE_3: ['solutions/3/rare_events_test_obfuscated_nodup.csv'],
+    CHALLENGE_4: ['solutions/4/novel_classes_class_disc_test_nodup.csv'],
+    CHALLENGE_BONUS: ['solutions/bonus/major13_test_ccv_obfuscated.csv'],
     CHALLENGE_TEST: ['solutions/test/toy_events_solution.csv']
 }
 PROTEIN_ATLAS = 'Data provided by the [Human Protein Atlas]({})\n\n'
