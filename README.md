@@ -25,8 +25,6 @@ By submitting a solution to any of these challenges, you agree to the following:
 
 ## Challenge 3
 
-There is a problem with the uploaded image test set for challenge 3. We are working on a fix.
-
 | Team   | F1 score            | Highest F1 Score   | Precision           | Recall              |
 |:-------|:--------------------|:-------------------|:--------------------|:--------------------|
 | Dapid  | auto-scoring failed | N/A                | auto-scoring failed | auto-scoring failed |
@@ -49,6 +47,7 @@ We will only score challenge 2, 3 and 4. But you are welcome to submit results f
 - You only need to download two image test sets:
   - major13_test.tar should be used for generating results for challenge 2, 4 and bonus.
   - rare_events_test.tar should be used for generating results for challenge 3.
+    - Note: If you've downloaded rare_events_test.tar before 2017-06-12:16.00 CET, please download the image set again. The set uploaded before this time contained duplicate images.
 
 # Result submission instructions
 
