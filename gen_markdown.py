@@ -1,9 +1,9 @@
 """Generate the readme markdown file."""
 import json
+import re
 from collections import OrderedDict
 
 from tabulate import tabulate
-
 
 README = 'README.md'
 LINKS = [
@@ -55,7 +55,8 @@ def make_table(scores, challenge):
             else results[challenge].get(col, 'N/A')
             for col in TAB_COL_ORDER])
         table.append(inner)
-    return sorted(table, key=lambda x: x[1], reverse=True)
+    return sorted(
+        table, key=lambda x: re.findall(r'\d+\.\d+', x[2]), reverse=True)
 
 
 def read_file(path):
