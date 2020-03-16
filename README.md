@@ -1,11 +1,18 @@
-# Submission deadline
+# Update 2020-03-16: This repositoy and challenge isn't maintained
+
+Please instead see our Kaggle challenge which is closed but available for out of competition submission.
+https://www.kaggle.com/c/human-protein-atlas-image-classification
+
+---
+
+## Submission deadline
 
 - The leader board and presentation submissions will close 24hrs prior to presentations (June 13 15:30
 EST).
 - Please note that results submission may need some time, so make your first submission well ahead of the deadline to be on the safe side.
 
 
-# Disclaimer
+## Disclaimer
 
 By submitting a solution to any of these challenges, you agree to the following:
 
@@ -15,9 +22,9 @@ By submitting a solution to any of these challenges, you agree to the following:
 - Your author list, including potential affiliations and emails, will be kept on record privately with your results until after the winners of the competition have been announced.
 
 
-# Leaderboard
+## Leaderboard
 
-## Challenge 2
+### Challenge 2
 
 | Team     |   F1 score |   Highest F1 Score |   Precision |   Recall |
 |:---------|-----------:|-------------------:|------------:|---------:|
@@ -26,7 +33,7 @@ By submitting a solution to any of these challenges, you agree to the following:
 | jdkangas |      0.189 |              0.367 |       0.477 |    0.196 |
 | Dapid    |      0.21  |              0.21  |       0.305 |    0.511 |
 
-## Challenge 3
+### Challenge 3
 
 | Team     | F1 score            | Highest F1 Score   | Precision           | Recall              |
 |:---------|:--------------------|:-------------------|:--------------------|:--------------------|
@@ -34,7 +41,7 @@ By submitting a solution to any of these challenges, you agree to the following:
 | jdkangas | 0.129               | 0.129              | 0.184               | 0.242               |
 | Dapid    | auto-scoring failed | N/A                | auto-scoring failed | auto-scoring failed |
 
-## Challenge test
+### Challenge test
 
 | Team           |   F1 score |   Highest F1 Score |   Precision |   Recall |
 |:---------------|-----------:|-------------------:|------------:|---------:|
@@ -44,7 +51,7 @@ Data provided by the [Human Protein Atlas](http://proteinatlas.org)
 
 Challenge hosted by [cytoconference.org](http://cytoconference.org/2017/Program/Image-Analysis-Challenge.aspx)
 
-# Generating results for submission
+## Generating results for submission
 
 We will only score challenge 1, 2, 3 and 4. But you are welcome to submit results for the bonus challenge too. To do so, please send a short presentation (5 slides or less) to the cyto-challenge [email address](mailto:cytochallenge2017@gmail.com).
 
@@ -57,7 +64,7 @@ To submit a result for challenge 1, run you model on the images from the major13
   - rare_events_test.tar should be used for generating results for challenge 3.
     - Note: If you've downloaded rare_events_test.tar before 2017-06-12:16.00 CET, please download the image set again. The set uploaded before this time contained duplicate images.
 
-# Result submission instructions
+## Result submission instructions
 
 Follow these instructions to submit your challenge results.
 
